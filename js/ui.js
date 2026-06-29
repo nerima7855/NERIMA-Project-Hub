@@ -40,6 +40,30 @@ function renderMembers() {
   `;
 }
 
+function renderTask(t) {
+  return `
+    <div class="task">
+      <div class="task-head">
+        <div>
+          <div class="project-name">${t.project}</div>
+          <div class="task-name">${t.name}</div>
+          <span class="status ${t.status === "新着" ? "new" : t.status === "作業中" ? "working" : ""}">${t.status}</span>
+          <div class="meta">期限：${formatDate(t.due)} ／ ボール保持：${t.ballDays}日</div>
+          <div class="meta">担当：${t.owner} ／ 次：${t.nextOwner}</div>
+        </div>
+        <div class="deadline ${deadlineClass(t.due)}">${deadlineText(t.due)}</div>
+      </div>
+
+      <div class="actions">
+        <button class="start-btn" onclick="startTask(${t.id})">開始</button>
+        <button class="done-btn" onclick="completeTask(${t.id})">完了</button>
+        <button class="pass-btn" onclick="passTask(${t.id})">次へ渡す</button>
+        <button class="delete-btn" onclick="deleteTask(${t.id})">削除</button>
+      </div>
+    </div>
+  `;
+}
+
 function renderMyPage() {
   const member = members.find(m => m.name === currentUser);
   const myTasks = tasks.filter(t => t.owner === currentUser && t.status !== "完了");
@@ -67,29 +91,6 @@ function renderMyPage() {
       </div>
     </div>
     ${renderNav()}
-  `;
-}
-
-function renderTask(t) {
-  return `
-    <div class="task">
-      <div class="task-head">
-        <div>
-          <div class="project-name">${t.project}</div>
-          <div class="task-name">${t.name}</div>
-          <span class="status ${t.status === "新着" ? "new" : t.status === "作業中" ? "working" : ""}">${t.status}</span>
-          <div class="meta">期限：${formatDate(t.due)} ／ ボール保持：${t.ballDays}日</div>
-          <div class="meta">終わったら：${t.nextOwner}へ渡す</div>
-        </div>
-        <div class="deadline ${deadlineClass(t.due)}">${deadlineText(t.due)}</div>
-      </div>
-      <div class="actions">
-        <button class="start-btn" onclick="startTask(${t.id})">開始</button>
-        <button class="done-btn" onclick="completeTask(${t.id})">完了</button>
-        <button class="pass-btn" onclick="passTask(${t.id})">次へ渡す</button>
-        <button class="delete-btn" onclick="deleteTask(${t.id})">削除</button>
-      </div>
-    </div>
   `;
 }
 
@@ -160,12 +161,60 @@ function renderProjectsPage() {
   `;
 }
 
+function renderEditForm(t) {
+  return `
+    <div class="card">
+      <div class="title">✏️ 編集：${t.name}</div>
+
+      <div class="form">
+        <div>
+          <label>タスク名</label>
+          <input id="editName-${t.id}" type="text" value="${t.name}">
+        </div>
+
+        <div>
+          <label>担当者</label>
+          <select id="editOwner-${t.id}">
+            ${members.map(m => `<option value="${m.name}" ${t.owner === m.name ? "selected" : ""}>${m.name}</option>`).join("")}
+          </select>
+        </div>
+
+        <div>
+          <label>次の担当者</label>
+          <select id="editNextOwner-${t.id}">
+            ${members.map(m => `<option value="${m.name}" ${t.nextOwner === m.name ? "selected" : ""}>${m.name}</option>`).join("")}
+          </select>
+        </div>
+
+        <div>
+          <label>状態</label>
+          <select id="editStatus-${t.id}">
+            ${["未着手", "新着", "作業中", "完了"].map(s => `<option value="${s}" ${t.status === s ? "selected" : ""}>${s}</option>`).join("")}
+          </select>
+        </div>
+
+        <div>
+          <label>期限</label>
+          <input id="editDue-${t.id}" type="date" value="${t.due}">
+        </div>
+
+        <div>
+          <label>ボール保持日数</label>
+          <input id="editBallDays-${t.id}" type="number" min="0" value="${t.ballDays}">
+        </div>
+
+        <button class="add-btn" onclick="saveEditedTask(${t.id})">編集を保存</button>
+      </div>
+    </div>
+  `;
+}
+
 function renderAdminPage() {
   return `
     <div class="app">
       <div class="hero">
         <h1>管理画面</h1>
-        <p>タスクを追加・削除できます。</p>
+        <p>タスクを追加・編集・削除できます。</p>
       </div>
 
       <div class="card">
@@ -207,10 +256,7 @@ function renderAdminPage() {
         </div>
       </div>
 
-      <div class="card">
-        <div class="title">🗂 登録済みタスク</div>
-        ${tasks.map(t => renderTask(t)).join("")}
-      </div>
+      ${tasks.map(t => renderEditForm(t)).join("")}
     </div>
     ${renderNav()}
   `;

@@ -78,6 +78,34 @@ function addTask() {
   render();
 }
 
+function saveEditedTask(id) {
+  const name = document.getElementById(`editName-${id}`).value.trim();
+  const owner = document.getElementById(`editOwner-${id}`).value;
+  const nextOwner = document.getElementById(`editNextOwner-${id}`).value;
+  const status = document.getElementById(`editStatus-${id}`).value;
+  const due = document.getElementById(`editDue-${id}`).value;
+  const ballDays = Number(document.getElementById(`editBallDays-${id}`).value);
+
+  if (!name) {
+    alert("タスク名を入力してください。");
+    return;
+  }
+
+  if (!due) {
+    alert("期限を入力してください。");
+    return;
+  }
+
+  tasks = tasks.map(t =>
+    t.id === id
+      ? { ...t, name, owner, nextOwner, status, due, ballDays }
+      : t
+  );
+
+  saveTasks();
+  render();
+}
+
 function render() {
   if (currentPage === "my") {
     document.getElementById("app").innerHTML = renderMyPage();
