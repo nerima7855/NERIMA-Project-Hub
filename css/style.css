@@ -1,0 +1,285 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans JP", sans-serif;
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.app {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 16px;
+  padding-bottom: 96px;
+}
+
+.hero {
+  background: #111827;
+  color: white;
+  border-radius: 28px;
+  padding: 22px;
+  margin-bottom: 16px;
+  box-shadow: 0 18px 40px rgba(0,0,0,.22);
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 25px;
+  line-height: 1.35;
+}
+
+.hero p {
+  margin: 8px 0 0;
+  color: #cbd5e1;
+  font-size: 13px;
+}
+
+.card {
+  background: white;
+  border-radius: 24px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 10px 26px rgba(15,23,42,.08);
+  border: 1px solid #e5e7eb;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+
+.big-number {
+  font-size: 58px;
+  font-weight: 900;
+  line-height: 1;
+  color: #dc2626;
+}
+
+.big-label {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 800;
+}
+
+.meta,
+.small {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 6px;
+  line-height: 1.65;
+}
+
+.member-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.member-btn {
+  border: 0;
+  border-radius: 16px;
+  padding: 12px;
+  text-align: left;
+  background: #f9fafb;
+  color: #111827;
+  font-weight: 900;
+  box-shadow: inset 0 0 0 1px #e5e7eb;
+}
+
+.member-btn.active {
+  background: #111827;
+  color: white;
+}
+
+.role {
+  display: block;
+  font-size: 11px;
+  opacity: .72;
+  margin-top: 4px;
+}
+
+.task {
+  border-top: 1px solid #e5e7eb;
+  padding: 14px 0;
+}
+
+.task:first-child {
+  border-top: 0;
+}
+
+.task-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.project-name {
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 800;
+}
+
+.task-name {
+  font-size: 17px;
+  font-weight: 900;
+  margin-top: 4px;
+}
+
+.deadline {
+  font-weight: 900;
+  color: #dc2626;
+  white-space: nowrap;
+}
+
+.deadline.warn {
+  color: #f59e0b;
+}
+
+.deadline.safe {
+  color: #16a34a;
+}
+
+.status {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.status.new {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status.working {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.actions button {
+  border: 0;
+  border-radius: 14px;
+  padding: 11px 6px;
+  font-weight: 900;
+}
+
+.start-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.done-btn {
+  background: #16a34a;
+  color: white;
+}
+
+.pass-btn {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.delete-btn {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.rank-row {
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.rank-row:last-child {
+  border-bottom: 0;
+}
+
+.badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #111827;
+  color: white;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+}
+
+.form {
+  display: grid;
+  gap: 10px;
+}
+
+.form label {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 900;
+}
+
+.form input,
+.form select {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 14px;
+  padding: 12px;
+  font-size: 15px;
+  background: #fff;
+}
+
+.add-btn {
+  width: 100%;
+  border: 0;
+  border-radius: 16px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 900;
+  background: #111827;
+  color: white;
+  margin-top: 6px;
+}
+
+.bottom-nav {
+  position: fixed;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  width: min(520px, calc(100% - 24px));
+  background: #111827;
+  border-radius: 999px;
+  padding: 8px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  box-shadow: 0 18px 40px rgba(0,0,0,.25);
+}
+
+.bottom-nav button {
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 6px;
+  background: transparent;
+  color: #cbd5e1;
+  font-weight: 900;
+}
+
+.bottom-nav button.active {
+  background: white;
+  color: #111827;
+}
